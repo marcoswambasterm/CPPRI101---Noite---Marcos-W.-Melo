@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
 # Create your views here.
-def index(request):
-    return render(request, 'index.html')
+class IndexView(TemplateView):
+    template_name = 'index.html'
 
+def lista_vitimas(request):
+    pessoas = Pessoa.objects.all()  # Pega todas as instâncias de Pessoa
+    pets = PET.objects.all()        # Pega todas as instâncias de PET
+    return render(request, 'vitimas/lista_vitimas.html', {'pessoas': pessoas, 'pets': pets})

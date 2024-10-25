@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Disaster Shield</title>
-</head>
-<body>
-    <h1>Index</h1>
-</body>
-</html>
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Bem-vindo ao Disaster Shield</h1>
+    <p class="lead">Gerencie vítimas, voluntários, abrigos e muito mais com eficiência.</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Vítimas</h5>
+                    <p class="card-text">Gerencie as informações das vítimas e seu status.</p>
+                    <a href="{% url 'lista_vitimas' %}" class="btn btn-primary">Acessar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Voluntários</h5>
+                    <p class="card-text">Gerencie o cadastro de voluntários e atribuições.</p>
+                    <a href="#" class="btn btn-primary">Acessar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Abrigos</h5>
+                    <p class="card-text">Controle a capacidade e alocação dos abrigos.</p>
+                    <a href="#" class="btn btn-primary">Acessar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

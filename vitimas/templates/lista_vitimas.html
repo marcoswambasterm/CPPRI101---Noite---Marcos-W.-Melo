@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Lista de Vítimas</h2>
+    <a href="{% url 'criar_pessoa' %}" class="btn btn-primary">Adicionar Pessoa</a>
+    <a href="{% url 'criar_pet' %}" class="btn btn-secondary">Adicionar Pet</a>
+
+    <h3>Pessoas</h3>
+    <ul>
+        {% for pessoa in pessoas %}
+            <li>
+                {{ pessoa.nome }} - {{ pessoa.telefone }} - {{ pessoa.email }}
+                <a href="{% url 'editar_pessoa' pessoa.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'deletar_pessoa' pessoa.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Pets</h3>
+    <ul>
+        {% for pet in pets %}
+            <li>
+                {{ pet.nome }} - {{ pet.raca }}
+                <a href="{% url 'editar_pet' pet.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'deletar_pet' pet.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
