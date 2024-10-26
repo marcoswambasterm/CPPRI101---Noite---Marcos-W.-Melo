@@ -1,13 +1,73 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block title %}Adicionar Pessoa{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Adicionar Pessoa</h2>
-    <form method="post">
+    <h2 class="mb-4">Adicionar Pessoa</h2>
+    <form method="post" action="{% url 'criar_pessoa' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{% url 'lista_vitimas' %}" class="btn btn-secondary">Cancelar</a>
+
+        <!-- Nome -->
+        <div class="mb-3 row">
+            <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="mb-3 row">
+            <label for="endereco" class="col-sm-2 col-form-label">Endereço:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="endereco" name="endereco" required>
+            </div>
+        </div>
+
+        <!-- Idade -->
+        <div class="mb-3 row">
+            <label for="idade" class="col-sm-2 col-form-label">Idade:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="idade" name="idade" required>
+            </div>
+        </div>
+
+        <!-- Sexo (Opção booleana) -->
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Sexo:</label>
+            <div class="col-sm-10">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sexo" id="sexo_m" value="Masculino" required>
+                    <label class="form-check-label" for="sexo_m">Masculino</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sexo" id="sexo_f" value="Feminino" required>
+                    <label class="form-check-label" for="sexo_f">Feminino</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Telefone -->
+        <div class="mb-3 row">
+            <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
+            <div class="col-sm-10">
+                <input type="tel" class="form-control" id="telefone" name="telefone" required>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Salvar</button>
+            <a href="{% url 'lista_vitimas' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
 </div>
 {% endblock %}
