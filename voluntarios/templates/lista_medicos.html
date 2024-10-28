@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Médicos{% endblock %}
+
+{% block content %}
+<h2>Lista de Médicos</h2>
+<a href="{% url 'adicionar_medico' %}">Adicionar Médico</a>
+<ul>
+    {% for medico in medicos %}
+    <li>{{ medico.nome }} - <a href="{% url 'editar_medico' medico.pk %}">Editar</a> | <a href="{% url 'excluir_medico' medico.pk %}">Excluir</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
