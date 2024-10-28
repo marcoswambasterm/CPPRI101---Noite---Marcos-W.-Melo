@@ -33,6 +33,7 @@ def editar_pessoa(request, pk):
         form = PessoaForm(instance=pessoa)
     return render(request, './form_pessoa.html', {'form': form})
 
+
 # Deletar uma pessoa
 def deletar_pessoa(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)

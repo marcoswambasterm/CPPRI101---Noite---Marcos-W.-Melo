@@ -1,13 +1,66 @@
 {% extends 'base.html' %}
 
+{% block title %}{% if form.instance.pk %}Editar Pet{% else %}Adicionar Pet{% endif %}{% endblock %}
+
 {% block content %}
 <div class="container mt-5">
-    <h2>Adicionar Pet</h2>
+    <h2 class="mb-4">{% if form.instance.pk %}Editar Pet{% else %}Adicionar Pet{% endif %}</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{% url 'lista_vitimas' %}" class="btn btn-secondary">Cancelar</a>
+
+        <!-- Nome -->
+        <div class="mb-3 row">
+            <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+            <div class="col-sm-10">
+                {{ form.nome }}
+            </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="mb-3 row">
+            <label for="endereco" class="col-sm-2 col-form-label">Endereço:</label>
+            <div class="col-sm-10">
+                {{ form.endereco }}
+            </div>
+        </div>
+
+        <!-- Idade -->
+        <div class="mb-3 row">
+            <label for="idade" class="col-sm-2 col-form-label">Idade:</label>
+            <div class="col-sm-10">
+                {{ form.idade }}
+            </div>
+        </div>
+
+        <!-- Raça -->
+        <div class="mb-3 row">
+            <label for="raca" class="col-sm-2 col-form-label">Raça:</label>
+            <div class="col-sm-10">
+                {{ form.raca }}
+            </div>
+        </div>
+
+        <!-- Espécie -->
+        <div class="mb-3 row">
+            <label for="especie" class="col-sm-2 col-form-label">Espécie:</label>
+            <div class="col-sm-10">
+                {{ form.especie }}
+            </div>
+        </div>
+
+        <!-- Dono (se aplicável) -->
+        <div class="mb-3 row">
+            <label for="dono" class="col-sm-2 col-form-label">Dono:</label>
+            <div class="col-sm-10">
+                {{ form.dono }}
+            </div>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success me-2">Salvar</button>
+            <a href="{% url 'lista_vitimas' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
 </div>
 {% endblock %}

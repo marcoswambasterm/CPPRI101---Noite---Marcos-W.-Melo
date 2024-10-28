@@ -23,3 +23,12 @@ class Pessoa(Vitima):
 # Subclasse PET
 class PET(Vitima):
     raca = models.CharField(max_length=50)
+    ESPECIE_CHOICES = [
+        ('Cachorro', 'Cachorro'),
+        ('Gato', 'Gato'),
+        ('Pássaro', 'Pássaro'),
+        ('Peixe', 'Peixe'),
+        ('Outro', 'Outro')
+    ]
+    especie = models.CharField(max_length=20, choices=ESPECIE_CHOICES, default='Cachorro')
+    dono = models.ForeignKey(Pessoa, on_delete=models.CASCADE, null=True, blank=True, related_name="pets")

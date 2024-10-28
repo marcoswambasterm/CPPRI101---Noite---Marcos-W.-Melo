@@ -45,6 +45,8 @@
                             <strong>Endereço:</strong> {{ pet.endereco }}<br>
                             <strong>Idade:</strong> {{ pet.idade }} anos<br>
                             <strong>Raça:</strong> {{ pet.raca }}
+                            <strong>Espécie:</strong> {{ pet.especie }}
+                            <strong>Dono:</strong> {% if pet.dono %} {{ pet.dono.nome }} {% else %} Sem Dono {% endif %}
                         </div>
                         <div>
                             <a href="{% url 'editar_pet' pet.pk %}" class="btn btn-warning btn-sm">Editar</a>

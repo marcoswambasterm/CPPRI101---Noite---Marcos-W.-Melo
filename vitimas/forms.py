@@ -9,4 +9,4 @@ class PessoaForm(forms.ModelForm):
 class PetForm(forms.ModelForm):
     class Meta:
         model = PET
-        fields = ['nome', 'endereco', 'idade', 'raca']
+        fields = ['nome', 'endereco', 'idade', 'raca', 'especie', 'dono']
