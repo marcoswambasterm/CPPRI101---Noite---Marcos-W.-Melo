@@ -1,13 +1,73 @@
 {% extends "base.html" %}
 
-{% block title %}Formulário de Médico{% endblock %}
+{% block title %}{% if form.instance.pk %}Editar Médico{% else %}Adicionar Médico{% endif %}{% endblock %}
 
 {% block content %}
-<h2>{% if form.instance.pk %}Editar Médico{% else %}Adicionar Médico{% endif %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
-</form>
-<a href="{% url 'listar_medicos' %}">Voltar para a lista</a>
+<div class="container mt-5">
+    <h2 class="mb-4">{% if form.instance.pk %}Editar Médico{% else %}Adicionar Médico{% endif %}</h2>
+
+    <!-- Define o action para criar ou editar com base no objeto médico -->
+    <form method="post" action="{% if form.instance.pk %}{% url 'editar_medico' form.instance.pk %}{% else %}{% url 'adicionar_medico' %}{% endif %}">
+        {% csrf_token %}
+
+        <!-- Nome -->
+        <div class="mb-3 row">
+            <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ form.instance.nome }}" required>
+            </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="mb-3 row">
+            <label for="endereco" class="col-sm-2 col-form-label">Endereço:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="endereco" name="endereco" value="{{ form.instance.endereco }}" required>
+            </div>
+        </div>
+
+        <!-- Telefone -->
+        <div class="mb-3 row">
+            <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
+            <div class="col-sm-10">
+                <input type="tel" class="form-control" id="telefone" name="telefone" value="{{ form.instance.telefone }}" required>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email" value="{{ form.instance.email }}" required>
+            </div>
+        </div>
+
+        <!-- CRM -->
+        <div class="mb-3 row">
+            <label for="crm" class="col-sm-2 col-form-label">CRM:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="crm" name="crm" value="{{ form.instance.crm }}" required>
+            </div>
+        </div>
+
+        <!-- Especialidade -->
+        <div class="mb-3 row">
+            <label for="especialidade" class="col-sm-2 col-form-label">Especialidade:</label>
+            <div class="col-sm-10">
+                <select class="form-select" id="especialidade" name="especialidade" required>
+                    <option value="" disabled {% if not form.instance.especialidade %}selected{% endif %}>Selecione a especialidade</option>
+                    {% for key, value in form.fields.especialidade.choices %}
+                        <option value="{{ key }}" {% if form.instance.especialidade == key %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Salvar</button>
+            <a href="{% url 'lista_voluntarios' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
