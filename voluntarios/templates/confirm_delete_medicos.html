@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Confirmar exclusão</h2>
-    <p>Você tem certeza que deseja deletar o voluntário <strong>{{ obj.nome }}</strong>?</p>
+    <p>Você tem certeza que deseja deletar <strong>{{ obj.nome }}</strong>?</p>
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Deletar</button>

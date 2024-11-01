@@ -39,15 +39,17 @@ def editar_medico(request, pk):
         form = MedicoForm(request.POST, instance=medico)
         if form.is_valid():
             form.save()
-            return redirect('listar_medicos')
+            return redirect('lista_voluntarios')
     else:
         form = MedicoForm(instance=medico)
     return render(request, './form_medico.html', {'form': form})
 
 def excluir_medico(request, pk):
     medico = get_object_or_404(Medico, pk=pk)
-    medico.delete()
-    return redirect('listar_medicos')
+    if request.method == "POST":
+        medico.delete()
+        return redirect('listar_medicos')
+    return render(request, './confirm_delete_medicos.html', {'obj': medico})
 
 # Psicólogos
 def listar_psicologos(request):
