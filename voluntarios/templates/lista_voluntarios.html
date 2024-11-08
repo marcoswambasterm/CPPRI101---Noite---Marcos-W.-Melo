@@ -41,10 +41,6 @@
                             <strong>CRM:</strong> {{ medico.crm }}<br>
                             <strong>Especialidade:</strong> {{ medico.get_especialidade_display }}
                         </div>
-                        <div>
-                            <a href="{% url 'editar_medico' medico.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="{% url 'excluir_medico' medico.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-                        </div>
                     </li>
                 {% endfor %}
             </ul>
@@ -65,10 +61,6 @@
                             <strong>Email:</strong> {{ psicologo.email }}<br>
                             <strong>CRP:</strong> {{ psicologo.crp }}
                         </div>
-                        <div>
-                            <a href="{% url 'editar_psicologo' psicologo.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="{% url 'excluir_psicologo' psicologo.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-                        </div>
                     </li>
                 {% endfor %}
             </ul>
@@ -88,10 +80,6 @@
                             <strong>Telefone:</strong> {{ veterinario.telefone }}<br>
                             <strong>Email:</strong> {{ veterinario.email }}<br>
                             <strong>CRMV:</strong> {{ veterinario.crmv }}
-                        </div>
-                        <div>
-                            <a href="{% url 'editar_veterinario' veterinario.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="{% url 'excluir_veterinario' veterinario.pk %}" class="btn btn-danger btn-sm">Excluir</a>
                         </div>
                     </li>
                 {% endfor %}
@@ -114,9 +102,6 @@
                             <strong>CPF:</strong> {{ atendente.cpf }}
                         </div>
                         <div>
-                            <a href="{% url 'editar_atendente' atendente.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="{% url 'excluir_atendente' atendente.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-                        </div>
                     </li>
                 {% endfor %}
             </ul>

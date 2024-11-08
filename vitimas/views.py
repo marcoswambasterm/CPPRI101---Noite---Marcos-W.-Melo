@@ -40,7 +40,7 @@ def deletar_pessoa(request, pk):
     if request.method == 'POST':
         pessoa.delete()
         return redirect('lista_vitimas')
-    return render(request, './confirm_delete.html', {'obj': pessoa})
+    return render(request, './confirm_delete_vitimas.html', {'obj': pessoa})
 
 # Criar um novo pet
 def criar_pet(request):
@@ -71,5 +71,5 @@ def deletar_pet(request, pk):
     if request.method == 'POST':
         pet.delete()
         return redirect('lista_vitimas')
-    return render(request, './confirm_delete.html', {'obj': pet})
+    return render(request, './confirm_delete_vitimas.html', {'obj': pet})
 
