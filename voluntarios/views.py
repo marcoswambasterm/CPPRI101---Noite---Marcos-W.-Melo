@@ -112,8 +112,10 @@ def editar_veterinario(request, pk):
 
 def excluir_veterinario(request, pk):
     veterinario = get_object_or_404(Veterinario, pk=pk)
-    veterinario.delete()
-    return redirect('listar_veterinarios')
+    if request.method == "POST":
+        veterinario.delete()
+        return redirect('listar_veterinarios')
+    return render(request, './confirm_delete_veterinarios.html', {'obj': veterinario})
 
 # Atendentes
 def listar_atendentes(request):
