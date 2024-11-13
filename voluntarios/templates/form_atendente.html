@@ -1,13 +1,59 @@
 {% extends "base.html" %}
 
-{% block title %}Formulário de Atendente{% endblock %}
+{% block title %}{% if form.instance.pk %}Editar Atendente{% else %}Adicionar Atendente{% endif %}{% endblock %}
 
 {% block content %}
-<h2>{% if form.instance.pk %}Editar Atendente{% else %}Adicionar Atendente{% endif %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
-<a href="{% url 'listar_atendentes' %}">Voltar para a lista</a>
+<div class="container mt-5">
+    <h2 class="mb-4">{% if form.instance.pk %}Editar Atendente{% else %}Adicionar Atendente{% endif %}</h2>
+
+    <form method="post" action="{% if form.instance.pk %}{% url 'editar_atendente' form.instance.pk %}{% else %}{% url 'adicionar_atendente' %}{% endif %}">
+        {% csrf_token %}
+
+        <!-- Nome -->
+        <div class="mb-3 row">
+            <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ form.instance.nome }}" required>
+            </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="mb-3 row">
+            <label for="endereco" class="col-sm-2 col-form-label">Endereço:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="endereco" name="endereco" value="{{ form.instance.endereco }}" required>
+            </div>
+        </div>
+
+        <!-- Telefone -->
+        <div class="mb-3 row">
+            <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
+            <div class="col-sm-10">
+                <input type="tel" class="form-control" id="telefone" name="telefone" value="{{ form.instance.telefone }}" required>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email" value="{{ form.instance.email }}" required>
+            </div>
+        </div>
+
+        <!-- CPF -->
+        <div class="mb-3 row">
+            <label for="cpf" class="col-sm-2 col-form-label">CPF:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="cpf" name="cpf" value="{{ form.instance.cpf }}" required>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Salvar</button>
+            <a href="{% url 'listar_atendentes' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

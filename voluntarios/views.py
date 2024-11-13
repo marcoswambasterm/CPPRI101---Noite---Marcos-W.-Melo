@@ -3,20 +3,21 @@ from .models import Medico, Psicologo, Veterinario, Atendente
 from .forms import MedicoForm, PsicologoForm, VeterinarioForm, AtendenteForm
 
 def lista_voluntarios(request):
-    # Obtenha todos os voluntários de cada modelo
-    medicos = Medico.objects.all()
-    psicologos = Psicologo.objects.all()
-    veterinarios = Veterinario.objects.all()
-    atendentes = Atendente.objects.all()
+    # Obter a contagem de cada tipo de voluntário
+    total_medicos = Medico.objects.count()
+    total_psicologos = Psicologo.objects.count()
+    total_veterinarios = Veterinario.objects.count()
+    total_atendentes = Atendente.objects.count()
+    total_voluntarios = total_medicos + total_psicologos + total_veterinarios + total_atendentes
 
-    # Combine todos os voluntários em uma lista
-    voluntarios = list(medicos) + list(psicologos) + list(veterinarios) + list(atendentes)
-
-    return render(request, './lista_voluntarios.html', {
-        'medicos': medicos,
-        'psicologos': psicologos,
-        'veterinarios': veterinarios,
-        'atendentes': atendentes,})
+    context = {
+        'total_medicos': total_medicos,
+        'total_psicologos': total_psicologos,
+        'total_veterinarios': total_veterinarios,
+        'total_atendentes': total_atendentes,
+        'total_voluntarios': total_voluntarios,
+    }
+    return render(request, 'lista_voluntarios.html', context)
 
 # Médicos
 def listar_medicos(request):
@@ -145,5 +146,7 @@ def editar_atendente(request, pk):
 
 def excluir_atendente(request, pk):
     atendente = get_object_or_404(Atendente, pk=pk)
-    atendente.delete()
-    return redirect('listar_atendentes')
+    if request.method == "POST":
+        atendente.delete()
+        return redirect('listar_atendentes')
+    return render(request, './confirm_delete_atendentes.html', {'obj': atendente})

@@ -26,92 +26,17 @@
         </div>
     </div>
 
-    {% if medicos or psicologos or veterinarios or atendentes %}
-        <!-- Exibindo Médicos -->
-        <h3>Médicos</h3>
-        {% if medicos %}
-            <ul class="list-group mb-4">
-                {% for medico in medicos %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Nome:</strong> {{ medico.nome }}<br>
-                            <strong>Endereço:</strong> {{ medico.endereco }}<br>
-                            <strong>Telefone:</strong> {{ medico.telefone }}<br>
-                            <strong>Email:</strong> {{ medico.email }}<br>
-                            <strong>CRM:</strong> {{ medico.crm }}<br>
-                            <strong>Especialidade:</strong> {{ medico.get_especialidade_display }}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-muted">Nenhum médico cadastrado.</p>
-        {% endif %}
+    <!-- Contadores de Voluntários -->
+    <div class="alert alert-primary text-center">
+        <h5>Contagem de Voluntários</h5>
+        <p><strong>Médicos:</strong> {{ total_medicos }}</p>
+        <p><strong>Psicólogos:</strong> {{ total_psicologos }}</p>
+        <p><strong>Veterinários:</strong> {{ total_veterinarios }}</p>
+        <p><strong>Atendentes:</strong> {{ total_atendentes }}</p>
+        <hr>
+        <p><strong>Total de Voluntários:</strong> {{ total_voluntarios }}</p>
+    </div>
 
-        <!-- Exibindo Psicólogos -->
-        <h3>Psicólogos</h3>
-        {% if psicologos %}
-            <ul class="list-group mb-4">
-                {% for psicologo in psicologos %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Nome:</strong> {{ psicologo.nome }}<br>
-                            <strong>Endereço:</strong> {{ psicologo.endereco }}<br>
-                            <strong>Telefone:</strong> {{ psicologo.telefone }}<br>
-                            <strong>Email:</strong> {{ psicologo.email }}<br>
-                            <strong>CRP:</strong> {{ psicologo.crp }}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-muted">Nenhum psicólogo cadastrado.</p>
-        {% endif %}
 
-        <!-- Exibindo Veterinários -->
-        <h3>Veterinários</h3>
-        {% if veterinarios %}
-            <ul class="list-group mb-4">
-                {% for veterinario in veterinarios %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Nome:</strong> {{ veterinario.nome }}<br>
-                            <strong>Endereço:</strong> {{ veterinario.endereco }}<br>
-                            <strong>Telefone:</strong> {{ veterinario.telefone }}<br>
-                            <strong>Email:</strong> {{ veterinario.email }}<br>
-                            <strong>CRMV:</strong> {{ veterinario.crmv }}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-muted">Nenhum veterinário cadastrado.</p>
-        {% endif %}
-
-        <!-- Exibindo Atendentes -->
-        <h3>Atendentes</h3>
-        {% if atendentes %}
-            <ul class="list-group mb-4">
-                {% for atendente in atendentes %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Nome:</strong> {{ atendente.nome }}<br>
-                            <strong>Endereço:</strong> {{ atendente.endereco }}<br>
-                            <strong>Telefone:</strong> {{ atendente.telefone }}<br>
-                            <strong>Email:</strong> {{ atendente.email }}<br>
-                            <strong>CPF:</strong> {{ atendente.cpf }}
-                        </div>
-                        <div>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-muted">Nenhum atendente cadastrado.</p>
-        {% endif %}
-    {% else %}
-        <div class="alert alert-info" role="alert">
-            Não há voluntários cadastrados no sistema.
-        </div>
-    {% endif %}
 </div>
 {% endblock %}
