@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h2 class="mb-4">{% if form.instance.pk %}Editar Atendente{% else %}Adicionar Atendente{% endif %}</h2>
 
-    <form method="post" action="{% if form.instance.pk %}{% url 'editar_atendente' form.instance.pk %}{% else %}{% url 'adicionar_atendente' %}{% endif %}">
+    <form method="post">
         {% csrf_token %}
 
         <!-- Nome -->
@@ -52,7 +52,7 @@
         <!-- Botões de Ação -->
         <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary me-2">Salvar</button>
-            <a href="{% url 'listar_atendentes' %}" class="btn btn-secondary">Cancelar</a>
+            <a href="{% url 'lista_atendentes' %}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>
