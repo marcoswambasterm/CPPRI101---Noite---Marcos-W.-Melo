@@ -1,75 +1,59 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Pessoa, PET
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .models import Pessoa, PET, Vitima
 from .forms import PessoaForm, PetForm
 
-# Create your views here.
-
 # Listar todas as vítimas
-def lista_vitimas(request):
-    pessoas = Pessoa.objects.all()
-    pets = PET.objects.all()
-    return render(request, './lista_vitimas.html', {'pessoas': pessoas, 'pets': pets})
+class ListaVitimasView(ListView):
+    queryset = Pessoa.objects.all()
+    template_name = 'lista_vitimas.html'
+    context_object_name = 'pessoas'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pessoas'] = Pessoa.objects.all()
+        context['pets'] = PET.objects.all()
+        context['total_pessoas'] = context['pessoas'].count()
+        context['total_pets'] = context['pets'].count()
+        context['total_vitimas'] = context['total_pessoas'] + context['total_pets']
+        return context
 
 # Criar uma nova pessoa
-def criar_pessoa(request):
-    if request.method == 'POST':
-        form = PessoaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_vitimas')
-    else:
-        form = PessoaForm()
-    return render(request, './form_pessoa.html', {'form': form})
+class CriarPessoaView(CreateView):
+    model = Pessoa
+    form_class = PessoaForm
+    template_name = 'form_pessoa.html'
+    success_url = reverse_lazy('lista_vitimas')
 
 # Editar uma pessoa existente
-def editar_pessoa(request, pk):
-    pessoa = get_object_or_404(Pessoa, pk=pk)
-    if request.method == 'POST':
-        form = PessoaForm(request.POST, instance=pessoa)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_vitimas')
-    else:
-        form = PessoaForm(instance=pessoa)
-    return render(request, './form_pessoa.html', {'form': form})
-
+class EditarPessoaView(UpdateView):
+    model = Pessoa
+    form_class = PessoaForm
+    template_name = 'form_pessoa.html'
+    success_url = reverse_lazy('lista_vitimas')
 
 # Deletar uma pessoa
-def deletar_pessoa(request, pk):
-    pessoa = get_object_or_404(Pessoa, pk=pk)
-    if request.method == 'POST':
-        pessoa.delete()
-        return redirect('lista_vitimas')
-    return render(request, './confirm_delete_vitimas.html', {'obj': pessoa})
+class DeletarPessoaView(DeleteView):
+    model = Pessoa
+    template_name = 'confirm_delete_vitimas.html'
+    success_url = reverse_lazy('lista_vitimas')
 
 # Criar um novo pet
-def criar_pet(request):
-    if request.method == 'POST':
-        form = PetForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_vitimas')
-    else:
-        form = PetForm()
-    return render(request, './form_pet.html', {'form': form})
+class CriarPetView(CreateView):
+    model = PET
+    form_class = PetForm
+    template_name = 'form_pet.html'
+    success_url = reverse_lazy('lista_vitimas')
 
 # Editar um pet existente
-def editar_pet(request, pk):
-    pet = get_object_or_404(PET, pk=pk)
-    if request.method == 'POST':
-        form = PetForm(request.POST, instance=pet)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_vitimas')
-    else:
-        form = PetForm(instance=pet)
-    return render(request, './form_pet.html', {'form': form})
+class EditarPetView(UpdateView):
+    model = PET
+    form_class = PetForm
+    template_name = 'form_pet.html'
+    success_url = reverse_lazy('lista_vitimas')
 
 # Deletar um pet
-def deletar_pet(request, pk):
-    pet = get_object_or_404(PET, pk=pk)
-    if request.method == 'POST':
-        pet.delete()
-        return redirect('lista_vitimas')
-    return render(request, './confirm_delete_vitimas.html', {'obj': pet})
-
+class DeletarPetView(DeleteView):
+    model = PET
+    template_name = 'confirm_delete_vitimas.html'
+    success_url = reverse_lazy('lista_vitimas')

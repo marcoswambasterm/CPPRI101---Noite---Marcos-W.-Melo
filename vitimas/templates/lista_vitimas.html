@@ -4,9 +4,24 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="my-4">Lista de Vítimas</h2>
+    <h2 class="my-4 text-center">Lista de Vítimas</h2>
     <a href="{% url 'criar_pessoa' %}" class="btn btn-primary mb-3">Adicionar Pessoa</a>
     <a href="{% url 'criar_pet' %}" class="btn btn-secondary mb-3">Adicionar Pet</a>
+
+    <!-- Contadores de Vítimas -->
+    <div class="alert alert-primary text-center">
+        <h5>Número de Vítimas</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Pessoas:</strong> {{ total_pessoas }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Pets:</strong> {{ total_pets }}</p>
+            </div>
+        </div>
+        <hr>
+        <p><strong>Total de Vítimas:</strong> {{ total_vitimas }}</p>
+    </div>
 
     {% if pessoas or pets %}
         <!-- Exibindo as pessoas cadastradas -->
@@ -44,8 +59,8 @@
                             <strong>Nome:</strong> {{ pet.nome }}<br>
                             <strong>Endereço:</strong> {{ pet.endereco }}<br>
                             <strong>Idade:</strong> {{ pet.idade }} anos<br>
-                            <strong>Raça:</strong> {{ pet.raca }}
-                            <strong>Espécie:</strong> {{ pet.especie }}
+                            <strong>Raça:</strong> {{ pet.raca }}<br>
+                            <strong>Espécie:</strong> {{ pet.especie }}<br>
                             <strong>Dono:</strong> {% if pet.dono %} {{ pet.dono.nome }} {% else %} Sem Dono {% endif %}
                         </div>
                         <div>

@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="my-4 text-center">Lista de Voluntários</h2>
+    <h2 class="my-4 text-center">Manutenção de Voluntários</h2>
 
     <!-- Botões de Adicionar e Lista -->
     <div class="row text-center">
@@ -28,15 +28,23 @@
 
     <!-- Contadores de Voluntários -->
     <div class="alert alert-primary text-center">
-        <h5>Contagem de Voluntários</h5>
-        <p><strong>Médicos:</strong> {{ total_medicos }}</p>
-        <p><strong>Psicólogos:</strong> {{ total_psicologos }}</p>
-        <p><strong>Veterinários:</strong> {{ total_veterinarios }}</p>
-        <p><strong>Atendentes:</strong> {{ total_atendentes }}</p>
+        <h5>Número de Voluntários</h5>
+        <div class="row">
+            <div class="col-md-3">
+                <p><strong>Médicos:</strong> {{ total_medicos }}</p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>Psicólogos:</strong> {{ total_psicologos }}</p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>Veterinários:</strong> {{ total_veterinarios }}</p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>Atendentes:</strong> {{ total_atendentes }}</p>
+            </div>
+        </div>
         <hr>
         <p><strong>Total de Voluntários:</strong> {{ total_voluntarios }}</p>
     </div>
-
-
 </div>
 {% endblock %}

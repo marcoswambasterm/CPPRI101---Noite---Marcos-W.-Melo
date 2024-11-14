@@ -7,7 +7,7 @@
     <h2 class="mb-4">{% if form.instance.pk %}Editar Pessoa{% else %}Adicionar Pessoa{% endif %}</h2>
 
     <!-- Define o action para criar ou editar com base no objeto pessoa -->
-    <form method="post" action="{% if form.instance.pk %}{% url 'editar_pessoa' form.instance.pk %}{% else %}{% url 'criar_pessoa' %}{% endif %}">
+    <form method="post">
         {% csrf_token %}
 
         <!-- Nome -->
