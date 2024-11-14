@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Abrigos{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="my-4 text-center">Manutenção de Abrigos</h2>
+
+    <!-- Botões de Adicionar e Lista -->
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'adicionar_abrigo' %}" class="btn btn-primary w-100 mb-2">Adicionar Abrigo</a>
+            <a href="{% url 'index' %}" class="btn btn-secondary mb-3">Retornar a Manutenção de Voluntários</a>
+        </div>
+    </div>
+
+    <!-- Contadores de Abrigos -->
+    <div class="alert alert-primary text-center">
+        <h5>Número de Abrigos</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Abrigos Gerais:</strong> {{ total_abrigos }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Abrigos com Animais:</strong> {{ total_abrigos_com_animais }}</p>
+            </div>
+        </div>
+        <hr>
+        <p><strong>Total de Abrigos:</strong> {{ total_abrigos_gerais }}</p>
+    </div>
+</div>
+{% endblock %}

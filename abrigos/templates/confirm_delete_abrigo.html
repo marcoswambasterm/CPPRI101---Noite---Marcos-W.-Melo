@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Confirmar Exclusão do Abrigo</h2>
+
+    <p>Você tem certeza de que deseja excluir o abrigo <strong>{{ abrigo.endereco }}</strong>?</p>
+    <p>Essa ação não poderá ser desfeita.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="{% url 'listar_abrigos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
