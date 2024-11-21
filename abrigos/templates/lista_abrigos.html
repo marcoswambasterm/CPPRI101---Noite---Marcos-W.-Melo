@@ -4,29 +4,38 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="my-4 text-center">Manutenção de Abrigos</h2>
+    <h2 class="my-4 text-center">Lista de Abrigos</h2>
+    <a href="{% url 'adicionar_abrigo' %}" class="btn btn-primary mb-4">Adicionar Abrigo</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Vitimas Registradas</th>
+                <th>Capacidade</th>
+            </tr>
+        </thead>
+        <tbody>
 
-    <!-- Botões de Adicionar e Lista -->
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <a href="{% url 'adicionar_abrigo' %}" class="btn btn-primary w-100 mb-2">Adicionar Abrigo</a>
-            <a href="{% url 'index' %}" class="btn btn-secondary mb-3">Retornar a Manutenção de Voluntários</a>
-        </div>
-    </div>
+                <tr>
+                    <td>{{ abrigo.nome }}</td>
+                    <td>{{ abrigo.endereco }}</td>
+                    <td>{{ abrigo.capacidade }}</td>
+                    <td>
+                        {% if abrigo.pk %}
+                            <a href="{% url 'editar_abrigo' abrigo.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url 'excluir_abrigo' abrigo.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                        {% else %}
+                            <span>Não disponível</span>
+                        {% endif %}
+                    </td>
+                </tr>
 
-    <!-- Contadores de Abrigos -->
-    <div class="alert alert-primary text-center">
-        <h5>Número de Abrigos</h5>
-        <div class="row">
-            <div class="col-md-6">
-                <p><strong>Abrigos Gerais:</strong> {{ total_abrigos }}</p>
-            </div>
-            <div class="col-md-6">
-                <p><strong>Abrigos com Animais:</strong> {{ total_abrigos_com_animais }}</p>
-            </div>
-        </div>
-        <hr>
-        <p><strong>Total de Abrigos:</strong> {{ total_abrigos_gerais }}</p>
-    </div>
+                <tr>
+                    <td colspan="4" class="text-center">Nenhum abrigo cadastrado.</td>
+                </tr>
+
+        </tbody>
+    </table>
 </div>
 {% endblock %}

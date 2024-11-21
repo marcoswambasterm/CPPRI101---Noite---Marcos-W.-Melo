@@ -1,33 +1,14 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block title %}{{ view.object|default:"Adicionar Abrigo" }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>{% if view.__class__.__name__ == 'AdicionarAbrigoView' %}Adicionar Abrigo{% else %}Editar Abrigo{% endif %}</h2>
-
-    <form method="post" class="form">
+<div class="container mt-5">
+    <h2 class="text-center mb-4">{{ view.object|default:"Adicionar Abrigo" }}</h2>
+    <form method="post">
         {% csrf_token %}
-
-        <div class="form-group">
-            <label for="endereco">Endereço</label>
-            {{ form.endereco|as_crispy_field }}
-        </div>
-
-        <div class="form-group">
-            <label for="capacidade_maxima">Capacidade Máxima</label>
-            {{ form.capacidade_maxima|as_crispy_field }}
-        </div>
-
-        <div class="form-group">
-            <label for="capacidade_maxima_voluntarios">Capacidade Máxima de Voluntários</label>
-            {{ form.capacidade_maxima_voluntarios|as_crispy_field }}
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            {{ form.email|as_crispy_field }}
-        </div>
-
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Salvar</button>
         <a href="{% url 'listar_abrigos' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
