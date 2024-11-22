@@ -4,37 +4,48 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="my-4 text-center">Lista de Abrigos</h2>
-    <a href="{% url 'adicionar_abrigo' %}" class="btn btn-primary mb-4">Adicionar Abrigo</a>
-    <table class="table table-striped">
-        <thead>
+    <h2 class="text-center">Lista de Abrigos</h2>
+
+    <!-- Botões de ação -->
+    <div class="d-flex justify-content-between mb-3">
+        <!-- Botão para adicionar um novo abrigo -->
+        <a href="{% url 'adicionar_abrigo' %}" class="btn btn-success">Adicionar Abrigo</a>
+        <!-- Botão para retornar à Home -->
+
+    </div>
+
+    <!-- Tabela de Abrigos -->
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
             <tr>
                 <th>Nome</th>
                 <th>Endereço</th>
-                <th>Vitimas Registradas</th>
                 <th>Capacidade</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-
-                <tr>
-                    <td>{{ abrigo.nome }}</td>
-                    <td>{{ abrigo.endereco }}</td>
-                    <td>{{ abrigo.capacidade }}</td>
-                    <td>
-                        {% if abrigo.pk %}
+            {% if abrigos %}
+                {% for abrigo in abrigos %}
+                    <tr>
+                        <td>{{ abrigo.nome }}</td>
+                        <td>{{ abrigo.endereco }}</td>
+                        <td>{{ abrigo.capacidade }}</td>
+                        <td>{{ abrigo.telefone }}</td>
+                        <td>{{ abrigo.email }}</td>
+                        <td>
                             <a href="{% url 'editar_abrigo' abrigo.pk %}" class="btn btn-warning btn-sm">Editar</a>
                             <a href="{% url 'excluir_abrigo' abrigo.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-                        {% else %}
-                            <span>Não disponível</span>
-                        {% endif %}
-                    </td>
-                </tr>
-
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
                 <tr>
-                    <td colspan="4" class="text-center">Nenhum abrigo cadastrado.</td>
+                    <td colspan="6" class="text-center">Nenhum abrigo cadastrado.</td>
                 </tr>
-
+            {% endif %}
         </tbody>
     </table>
 </div>
