@@ -5,6 +5,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4">{% if form.instance.pk %}Editar Pet{% else %}Adicionar Pet{% endif %}</h2>
+
     <form method="post">
         {% csrf_token %}
 
@@ -12,7 +13,7 @@
         <div class="mb-3 row">
             <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
             <div class="col-sm-10">
-                {{ form.nome }}
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ form.instance.nome }}" required>
             </div>
         </div>
 
@@ -20,7 +21,7 @@
         <div class="mb-3 row">
             <label for="endereco" class="col-sm-2 col-form-label">Endereço:</label>
             <div class="col-sm-10">
-                {{ form.endereco }}
+                <input type="text" class="form-control" id="endereco" name="endereco" value="{{ form.instance.endereco }}" required>
             </div>
         </div>
 
@@ -28,7 +29,7 @@
         <div class="mb-3 row">
             <label for="idade" class="col-sm-2 col-form-label">Idade:</label>
             <div class="col-sm-10">
-                {{ form.idade }}
+                <input type="number" class="form-control" id="idade" name="idade" value="{{ form.instance.idade }}" required>
             </div>
         </div>
 
@@ -36,7 +37,7 @@
         <div class="mb-3 row">
             <label for="raca" class="col-sm-2 col-form-label">Raça:</label>
             <div class="col-sm-10">
-                {{ form.raca }}
+                <input type="text" class="form-control" id="raca" name="raca" value="{{ form.instance.raca }}" required>
             </div>
         </div>
 
@@ -44,21 +45,32 @@
         <div class="mb-3 row">
             <label for="especie" class="col-sm-2 col-form-label">Espécie:</label>
             <div class="col-sm-10">
-                {{ form.especie }}
+                <select class="form-select" id="especie" name="especie" required>
+                    <option value="Cachorro" {% if form.instance.especie == "Cachorro" %}selected{% endif %}>Cachorro</option>
+                    <option value="Gato" {% if form.instance.especie == "Gato" %}selected{% endif %}>Gato</option>
+                    <option value="Pássaro" {% if form.instance.especie == "Pássaro" %}selected{% endif %}>Pássaro</option>
+                    <option value="Peixe" {% if form.instance.especie == "Peixe" %}selected{% endif %}>Peixe</option>
+                    <option value="Outro" {% if form.instance.especie == "Outro" %}selected{% endif %}>Outro</option>
+                </select>
             </div>
         </div>
 
-        <!-- Dono (se aplicável) -->
+        <!-- Dono -->
         <div class="mb-3 row">
             <label for="dono" class="col-sm-2 col-form-label">Dono:</label>
             <div class="col-sm-10">
-                {{ form.dono }}
+                <select class="form-select" id="dono" name="dono">
+                    <option value="" {% if not form.instance.dono %}selected{% endif %}>Sem dono</option>
+                    {% for pessoa in form.dono.field.queryset %}
+                        <option value="{{ pessoa.pk }}" {% if form.instance.dono == pessoa %}selected{% endif %}>{{ pessoa.nome }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
 
-        <!-- Botões de ação -->
+        <!-- Botões de Ação -->
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success me-2">Salvar</button>
+            <button type="submit" class="btn btn-primary me-2">Salvar</button>
             <a href="{% url 'lista_vitimas' %}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>

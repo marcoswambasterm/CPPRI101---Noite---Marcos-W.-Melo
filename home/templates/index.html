@@ -1,4 +1,3 @@
-<!-- templates/index.html -->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -7,7 +6,7 @@
     <p class="lead">Gerencie vítimas, voluntários, abrigos e muito mais com eficiência.</p>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Vítimas</h5>
@@ -16,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Voluntários</h5>
@@ -25,12 +24,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Abrigos</h5>
                     <p class="card-text">Controle a capacidade e alocação dos abrigos.</p>
                     <a href="{% url 'listar_abrigos' %}" class="btn btn-primary">Acessar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Atendimentos</h5>
+                    <p class="card-text">Gerencie os registros e informações de atendimentos.</p>
+                    <a href="{% url 'atendimento_list' %}" class="btn btn-primary">Acessar</a>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ class AbrigoForm(forms.ModelForm):
         fields = ['nome', 'endereco', 'capacidade', 'telefone', 'email']
 
         error_messages = {
-            'capacidade': {'min_value': 'Valor minimo',
-                           'max_value': 'Valor Maximo',}
+            'capacidade': {'min_value': 'Capacidade minínima do abrigo não pode ser menor que 01',
+                           'max_value': 'Capacidade máxima do abrigo não pode ser maior que 100',}
 
         }

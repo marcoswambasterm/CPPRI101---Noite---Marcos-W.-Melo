@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Atendimentos</h1>
+  <table>
+    <tr>
+      <th>Tipo</th>
+      <th>Descrição</th>
+      <th>Data</th>
+      <th>Ações</th>
+    </tr>
+    {% for atendimento in atendimentos %}
+      <tr>
+        <td>{{ atendimento.tipo }}</td>
+        <td>{{ atendimento.descricao }}</td>
+        <td>{{ atendimento.data }}</td>
+        <td>
+          <a href="{% url 'atendimento_update' atendimento.pk %}">Editar</a> |
+          <a href="{% url 'atendimento_delete' atendimento.pk %}">Excluir</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+  <a href="{% url 'atendimento_create' %}">Adicionar Atendimento</a>
+{% endblock %}

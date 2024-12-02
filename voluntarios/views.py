@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Medico, Psicologo, Veterinario, Atendente, Voluntario
 from .forms import MedicoForm, PsicologoForm, VeterinarioForm, AtendenteForm
+from django.core.mail import send_mail
 
 # Lista Geral de Voluntários
 class ListaVoluntariosView(ListView):
@@ -31,6 +32,20 @@ class AdicionarMedicoView(CreateView):
     form_class = MedicoForm
     template_name = 'form_medico.html'
     success_url = reverse_lazy('lista_medicos')
+
+    def form_valid(self, form):
+        # Enviar o e-mail quando o formulário for validado com sucesso
+        response = super().form_valid(form)
+
+        # Enviar e-mail
+        subject = 'Cadastro de Médico Realizado com Sucesso'
+        message = f'O médico {form.instance.nome} foi cadastrado com sucesso no sistema.'
+        from_email = 'marcoswambasterm@gmail.com'
+        recipient_list = [form.instance.email]
+
+        send_mail(subject, message, from_email, recipient_list)
+
+        return response
 
 class EditarMedicoView(UpdateView):
     model = Medico

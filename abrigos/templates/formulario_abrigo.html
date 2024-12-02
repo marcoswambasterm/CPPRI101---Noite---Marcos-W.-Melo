@@ -1,17 +1,19 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}{% if form.instance.pk %}Editar Abrigo{% else %}Adicionar Abrigo{% endif %}{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4">{% if form.instance.pk %}Editar Abrigo{% else %}Adicionar Abrigo{% endif %}</h2>
+
     <form method="post">
         {% csrf_token %}
+
         <!-- Nome -->
         <div class="mb-3 row">
             <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
             <div class="col-sm-10">
-                {{ form.nome }}
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ form.instance.nome }}" required>
             </div>
         </div>
 
@@ -19,7 +21,7 @@
         <div class="mb-3 row">
             <label for="endereco" class="col-sm-2 col-form-label">Endereço:</label>
             <div class="col-sm-10">
-                {{ form.endereco }}
+                <input type="text" class="form-control" id="endereco" name="endereco" value="{{ form.instance.endereco }}" required>
             </div>
         </div>
 
@@ -27,16 +29,16 @@
         <div class="mb-3 row">
             <label for="capacidade" class="col-sm-2 col-form-label">Capacidade:</label>
             <div class="col-sm-10">
-                {{ form.capacidade }}
+                <input type="number" class="form-control" id="capacidade" name="capacidade" value="{{ form.instance.capacidade }}" required>
+                <div class="text-danger">{{form.capacidade.errors}}</div>
             </div>
-            <div class="text-danger">{{form.capacidade.errors}}</div>
         </div>
 
         <!-- Telefone -->
         <div class="mb-3 row">
             <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
             <div class="col-sm-10">
-                {{ form.telefone }}
+                <input type="tel" class="form-control" id="telefone" name="telefone" value="{{ form.instance.telefone }}" required>
             </div>
         </div>
 
@@ -44,13 +46,13 @@
         <div class="mb-3 row">
             <label for="email" class="col-sm-2 col-form-label">Email:</label>
             <div class="col-sm-10">
-                {{ form.email }}
+                <input type="email" class="form-control" id="email" name="email" value="{{ form.instance.email }}" required>
             </div>
         </div>
 
-        <!-- Botões de ação -->
+        <!-- Botões de Ação -->
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success me-2">Salvar</button>
+            <button type="submit" class="btn btn-primary me-2">Salvar</button>
             <a href="{% url 'listar_abrigos' %}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
