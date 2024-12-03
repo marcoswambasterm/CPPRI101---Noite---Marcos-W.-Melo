@@ -11,7 +11,7 @@ class Atendimento(models.Model):
     tipo = models.CharField(max_length=20, choices=TIPO_ATENDIMENTO_CHOICES, default='Médico')
     descricao = models.TextField()
     data = models.DateField()
-    voluntario = models.ForeignKey(
+    medico = models.ForeignKey(
         Medico,
         null=True,
         blank=True,

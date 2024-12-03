@@ -1,25 +1,46 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block title %}Lista de Atendimentos{% endblock %}
 
 {% block content %}
-  <h1>Atendimentos</h1>
-  <table>
-    <tr>
-      <th>Tipo</th>
-      <th>Descrição</th>
-      <th>Data</th>
-      <th>Ações</th>
-    </tr>
-    {% for atendimento in atendimentos %}
-      <tr>
-        <td>{{ atendimento.tipo }}</td>
-        <td>{{ atendimento.descricao }}</td>
-        <td>{{ atendimento.data }}</td>
-        <td>
-          <a href="{% url 'atendimento_update' atendimento.pk %}">Editar</a> |
-          <a href="{% url 'atendimento_delete' atendimento.pk %}">Excluir</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
-  <a href="{% url 'atendimento_create' %}">Adicionar Atendimento</a>
+<div class="container mt-5">
+    <h2 class="text-center">Lista de Atendimentos</h2>
+
+    <!-- Botões de ação -->
+    <div class="d-flex justify-content-between mb-3">
+        <!-- Botão para adicionar um novo atendimento -->
+        <a href="{% url 'atendimento_create' %}" class="btn btn-success">Adicionar Atendimento</a>
+    </div>
+
+    <!-- Tabela de Atendimentos -->
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Tipo</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if atendimentos %}
+                {% for atendimento in atendimentos %}
+                    <tr>
+                        <td>{{ atendimento.tipo }}</td>
+                        <td>{{ atendimento.descricao }}</td>
+                        <td>{{ atendimento.data }}</td>
+                        <td>
+                            <a href="{% url 'atendimento_update' atendimento.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url 'atendimento_delete' atendimento.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">Nenhum atendimento cadastrado.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

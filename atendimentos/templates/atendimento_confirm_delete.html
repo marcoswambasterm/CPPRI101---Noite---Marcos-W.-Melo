@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Excluir Atendimento</h1>
-  <p>Você tem certeza que deseja excluir o atendimento?</p>
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Confirmar Excluir</button>
-  </form>
-  <a href="{% url 'atendimento_list' %}">Cancelar</a>
+<div class="container mt-4">
+    <h1 class="text-center">Excluir Atendimento</h1>
+    <p class="text-center mt-3">Você tem certeza que deseja excluir o atendimento?</p>
+    <div class="text-center mt-4">
+        <form method="post" class="d-inline-block">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+        </form>
+        <a href="{% url 'atendimento_list' %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+</div>
 {% endblock %}
