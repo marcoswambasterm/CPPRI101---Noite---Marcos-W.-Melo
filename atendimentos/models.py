@@ -1,12 +1,15 @@
 from django.db import models
 from vitimas.models import Pessoa, PET
-from voluntarios.models import Medico, Psicologo, Veterinario
+from voluntarios.models import Atendente, Medico, Psicologo, Veterinario
+from abrigos.models import Abrigo
 
 class Atendimento(models.Model):
     TIPO_ATENDIMENTO_CHOICES = [
         ('Médico', 'Médico'),
         ('Psicológico', 'Psicológico'),
         ('Veterinário', 'Veterinário'),
+        ('Alocação', 'Alocação'),
+
     ]
     tipo = models.CharField(max_length=20, choices=TIPO_ATENDIMENTO_CHOICES, default='Médico')
     descricao = models.TextField()
@@ -32,6 +35,13 @@ class Atendimento(models.Model):
         on_delete=models.SET_NULL,
         related_name="atendimentos_veterinario"
     )
+    atendente = models.ForeignKey(
+        Atendente,
+        null=True,
+        blank=True,
+        on_delete = models.SET_NULL,
+        related_name="alocações_atendente"
+    )
     vitima_pessoa = models.ForeignKey(
         Pessoa,
         null=True,
@@ -45,6 +55,14 @@ class Atendimento(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="atendimentos_pet"
+    )
+
+    abrigo = models.ForeignKey(
+        Abrigo,
+        null=True,
+        blank=True,
+        on_delete = models.SET_NULL,
+        related_name="alocações_abrigo"
     )
 
     def __str__(self):

@@ -49,8 +49,15 @@
                     {% endif %}
                 </div>
 
-                <!-- Linha com médico, psicólogo e veterinário -->
-                <div class="row">
+                <!-- Campos para médicos, psicólogos e veterinários -->
+                <div class="row" id="voluntarios-section">
+                    <div class="col-md-4 mb-3" id="atendente-field">
+                        <label for="{{ form.atendente.id_for_label }}" class="form-label">{{ form.atendente.label }}</label>
+                        {{ form.atendente|add_class:"form-control" }}
+                        {% if form.atendente.errors %}
+                        <div class="text-danger mt-1">{{ form.atendente.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
                     <div class="col-md-4 mb-3">
                         <label for="{{ form.medico.id_for_label }}" class="form-label">{{ form.medico.label }}</label>
                         {{ form.medico|add_class:"form-control" }}
@@ -75,7 +82,7 @@
                 </div>
 
                 <!-- Linha com vítima pessoa e vítima pet -->
-                <div class="row">
+                <div class="row" id="vitimas-section">
                     <div class="col-md-6 mb-3">
                         <label for="{{ form.vitima_pessoa.id_for_label }}" class="form-label">{{ form.vitima_pessoa.label }}</label>
                         {{ form.vitima_pessoa|add_class:"form-control" }}
@@ -92,6 +99,15 @@
                     </div>
                 </div>
 
+                <!-- Campo de Abrigo (exibido apenas para Alocação) -->
+                <div class="mb-3" id="abrigo-section" style="display: none;">
+                    <label for="{{ form.abrigo.id_for_label }}" class="form-label">{{ form.abrigo.label }}</label>
+                    {{ form.abrigo|add_class:"form-control" }}
+                    {% if form.abrigo.errors %}
+                    <div class="text-danger mt-1">{{ form.abrigo.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+
                 <!-- Botões -->
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-success">Salvar</button>
@@ -101,4 +117,53 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const tipoSelect = document.getElementById("id_tipo");
+    const abrigoSection = document.getElementById("abrigo-section");
+    const voluntariosSection = document.getElementById("voluntarios-section");
+    const atendenteField = document.getElementById("id_atendente").parentElement;
+    const medicoField = document.getElementById("id_medico").parentElement;
+    const psicologoField = document.getElementById("id_psicologo").parentElement;
+    const veterinarioField = document.getElementById("id_veterinario").parentElement;
+    const vitimasSection = document.getElementById("vitimas-section");
+    const vitimaPessoaField = document.getElementById("id_vitima_pessoa").parentElement;
+    const vitimaPetField = document.getElementById("id_vitima_pet").parentElement;
+
+    function toggleSections() {
+        const tipo = tipoSelect.value;
+
+        // Exibe/oculta o campo de abrigo para alocação
+        abrigoSection.style.display = tipo === "Alocação" ? "block" : "none";
+
+        // Exibe/oculta os campos de atendente para alocação
+        atendenteField.style.display = tipo === "Alocação" ? "block" : "none";
+
+        // Mostra/oculta os campos de voluntários para outros tipos (médico, psicólogo, veterinário)
+        voluntariosSection.style.display = tipo === "Alocação" ? "none" : "flex";
+
+        // Gerencia a exibição das vítimas (sempre exibido para "Alocação" e outros tipos)
+        vitimasSection.style.display = tipo === "Alocação" || tipo !== "" ? "flex" : "none";
+
+        // Gerencia a exibição dos voluntários por tipo
+        medicoField.style.display = tipo === "Médico" ? "block" : "none";
+        psicologoField.style.display = tipo === "Psicológico" ? "block" : "none";
+        veterinarioField.style.display = tipo === "Veterinário" ? "block" : "none";
+
+        // Exibe os campos de vítimas para alocação
+        if (tipo === "Alocação") {
+            vitimaPessoaField.style.display = "block";
+            vitimaPetField.style.display = "block";
+        }
+    }
+
+    // Escuta mudanças no seletor de tipo
+    tipoSelect.addEventListener("change", toggleSections);
+
+    // Configuração inicial
+    toggleSections();
+});
+
+</script>
 {% endblock %}
