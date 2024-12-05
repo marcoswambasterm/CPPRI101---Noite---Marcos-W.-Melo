@@ -1,7 +1,7 @@
 from django import forms
 from .models import Atendimento
 from vitimas.models import Pessoa, PET
-from voluntarios.models import Medico, Psicologo, Veterinario
+from voluntarios.models import Medico, Psicologo, Veterinario, Atendente
 from abrigos.models import Abrigo
 
 
@@ -10,14 +10,20 @@ class AtendimentoForm(forms.ModelForm):
         model = Atendimento
         fields = ['tipo', 'descricao', 'data', 'medico', 'psicologo', 'veterinario', 'atendente', 'vitima_pessoa', 'vitima_pet', 'abrigo']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['atendente'].queryset = Atendente.objects.all()
+
     def clean(self):
         cleaned_data = super().clean()
         tipo = cleaned_data.get('tipo')
         medico = cleaned_data.get('medico')
         psicologo = cleaned_data.get('psicologo')
         veterinario = cleaned_data.get('veterinario')
+        atendente = cleaned_data.get('atendente')
         vitima_pessoa = cleaned_data.get('vitima_pessoa')
         vitima_pet = cleaned_data.get('vitima_pet')
+        abrigo = cleaned_data.get('abrigo')
 
         # Validação para garantir que o voluntário corresponde ao tipo de atendimento
         if tipo == 'Médico' and not medico:
@@ -35,8 +41,7 @@ class AtendimentoForm(forms.ModelForm):
         if tipo == 'Veterinário' and veterinario and vitima_pessoa:
             raise forms.ValidationError("Atendimentos veterinários não podem envolver uma vítima do tipo pessoa.")
 
-
-        #Validações de alocação
+        # Validações de alocação
         if tipo == 'Alocação':
             if not atendente:
                 raise forms.ValidationError("Atendimentos de alocação exigem a seleção de um atendente.")

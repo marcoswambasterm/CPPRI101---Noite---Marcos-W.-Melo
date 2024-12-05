@@ -51,7 +51,7 @@
 
                 <!-- Campos para médicos, psicólogos e veterinários -->
                 <div class="row" id="voluntarios-section">
-                    <div class="col-md-4 mb-3" id="atendente-field">
+                    <div class="col-md-4 mb-3">
                         <label for="{{ form.atendente.id_for_label }}" class="form-label">{{ form.atendente.label }}</label>
                         {{ form.atendente|add_class:"form-control" }}
                         {% if form.atendente.errors %}
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tipoSelect = document.getElementById("id_tipo");
     const abrigoSection = document.getElementById("abrigo-section");
     const voluntariosSection = document.getElementById("voluntarios-section");
-    const atendenteField = document.getElementById("id_atendente").parentElement;
+    const atendenteField = document.getElementById("id_atendente")?.parentElement;
     const medicoField = document.getElementById("id_medico").parentElement;
     const psicologoField = document.getElementById("id_psicologo").parentElement;
     const veterinarioField = document.getElementById("id_veterinario").parentElement;
@@ -137,28 +137,24 @@ document.addEventListener("DOMContentLoaded", function () {
         // Exibe/oculta o campo de abrigo para alocação
         abrigoSection.style.display = tipo === "Alocação" ? "block" : "none";
 
-        // Exibe/oculta os campos de atendente para alocação
-        atendenteField.style.display = tipo === "Alocação" ? "block" : "none";
+        // Exibe/oculta o campo de atendente para alocação
+        if (atendenteField) {
+            atendenteField.style.display = tipo === "Alocação" ? "block" : "none";
+        }
 
-        // Mostra/oculta os campos de voluntários para outros tipos (médico, psicólogo, veterinário)
-        voluntariosSection.style.display = tipo === "Alocação" ? "none" : "flex";
-
-        // Gerencia a exibição das vítimas (sempre exibido para "Alocação" e outros tipos)
-        vitimasSection.style.display = tipo === "Alocação" || tipo !== "" ? "flex" : "none";
-
-        // Gerencia a exibição dos voluntários por tipo
+        // Exibe/oculta os campos de médico, psicólogo, e veterinário com base no tipo de atendimento
         medicoField.style.display = tipo === "Médico" ? "block" : "none";
         psicologoField.style.display = tipo === "Psicológico" ? "block" : "none";
         veterinarioField.style.display = tipo === "Veterinário" ? "block" : "none";
 
-        // Exibe os campos de vítimas para alocação
-        if (tipo === "Alocação") {
-            vitimaPessoaField.style.display = "block";
-            vitimaPetField.style.display = "block";
-        }
+        // Configuração de vítima pessoa ou pet
+        const showVitimaPessoa = tipo !== "Veterinário";
+        const showVitimaPet = tipo === "Veterinário" || tipo === "Alocação";
+        vitimaPessoaField.style.display = showVitimaPessoa ? "block" : "none";
+        vitimaPetField.style.display = showVitimaPet ? "block" : "none";
     }
 
-    // Escuta mudanças no seletor de tipo
+    // Adiciona evento de mudança no campo tipo
     tipoSelect.addEventListener("change", toggleSections);
 
     // Configuração inicial

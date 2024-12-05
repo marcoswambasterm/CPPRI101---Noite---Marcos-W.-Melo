@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+INSTALLED_APPS += ["django_bootstrap5",]
+
 INSTALLED_APPS += [
     'home',
     'vitimas',
@@ -141,3 +143,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'marcoswambasterm@gmail.com'
 EMAIL_HOST_PASSWORD = 'jawhyhjcxsqlzoun'
 DEFAULT_FROM_EMAIL = 'DisasterShield'
+
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'login'

@@ -40,7 +40,7 @@ class Atendimento(models.Model):
         null=True,
         blank=True,
         on_delete = models.SET_NULL,
-        related_name="alocações_atendente"
+        related_name="atendente_alocação"
     )
     vitima_pessoa = models.ForeignKey(
         Pessoa,
